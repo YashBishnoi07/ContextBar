@@ -1,14 +1,4 @@
-/**
- * scripts/copy-public.js
- * Run after `vite build` to copy extension static assets into dist/
- * so that dist/ is the complete, loadable unpacked extension.
- *
- * Files copied:
- *   public/manifest.json      → dist/manifest.json
- *   public/background.js      → dist/background.js
- *   public/content.js         → dist/content.js
- *   public/data/outlets.json  → dist/data/outlets.json
- */
+
 
 import { copyFileSync, mkdirSync, existsSync } from 'fs'
 import { resolve, dirname } from 'path'
@@ -42,4 +32,4 @@ for (const size of iconSizes) {
   }
 }
 
-console.log('\n[ContextBar] ✅ dist/ is ready to load as an unpacked extension.\n')
+console.log('\n[ContextBar]  dist/ is ready to load as an unpacked extension.\n')
