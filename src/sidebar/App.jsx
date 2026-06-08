@@ -11,11 +11,11 @@ function extractDomain(url) {
 }
 
 const BIAS_CONFIG = {
-  'left':       { label: 'Left',        color: '#3b82f6', index: 0 },
-  'lean-left':  { label: 'Lean Left',   color: '#93c5fd', index: 1 },
-  'center':     { label: 'Center',      color: '#6b7280', index: 2 },
-  'lean-right': { label: 'Lean Right',  color: '#fca5a5', index: 3 },
-  'right':      { label: 'Right',       color: '#ef4444', index: 4 },
+  'left':       { label: 'Left',        color: '#2563eb', index: 0 },
+  'lean-left':  { label: 'Lean Left',   color: '#60a5fa', index: 1 },
+  'center':     { label: 'Center',      color: '#64748b', index: 2 },
+  'lean-right': { label: 'Lean Right',  color: '#f87171', index: 3 },
+  'right':      { label: 'Right',       color: '#dc2626', index: 4 },
 }
 
 const BIAS_STOPS = ['left', 'lean-left', 'center', 'lean-right', 'right']
@@ -41,17 +41,18 @@ function BiasBar({ bias }) {
               <div style={{
                 height: '8px',
                 borderRadius: '4px',
-                backgroundColor: isActive ? cfg.color : '#2d2d3d',
+                backgroundColor: isActive ? cfg.color : '#e2e8f0',
                 margin: '0 2px',
-                transition: 'background-color 0.3s ease',
+                transition: 'all 0.3s ease',
                 ...(isActive && {
-                  boxShadow: `0 0 8px ${cfg.color}88`,
+                  boxShadow: `0 0 10px ${cfg.color}44`,
+                  transform: 'scaleY(1.1)'
                 }),
               }} />
               <span style={{
                 fontSize: '9px',
-                color: isActive ? cfg.color : '#555570',
-                fontWeight: isActive ? 700 : 400,
+                color: isActive ? cfg.color : '#94a3b8',
+                fontWeight: isActive ? 700 : 500,
                 display: 'block',
                 marginTop: '4px',
                 transition: 'color 0.3s ease',
@@ -64,7 +65,7 @@ function BiasBar({ bias }) {
         })}
       </div>
       {!activeConfig && (
-        <p style={{ fontSize: '11px', color: '#555570', textAlign: 'center' }}>
+        <p style={{ fontSize: '11px', color: '#64748b', textAlign: 'center' }}>
           Bias rating unavailable
         </p>
       )}
@@ -80,17 +81,17 @@ function BiasPill({ bias }) {
   return (
     <span style={{
       display: 'inline-block',
-      padding: '1px 6px',
+      padding: '2px 8px',
       borderRadius: '999px',
       fontSize: '9px',
       fontWeight: 700,
       color: cfg.color,
-      border: `1px solid ${cfg.color}55`,
+      border: `1px solid ${cfg.color}33`,
       backgroundColor: `${cfg.color}15`,
       letterSpacing: '0.05em',
       textTransform: 'uppercase',
       verticalAlign: 'middle',
-      marginLeft: '6px',
+      marginLeft: '8px',
     }}>
       {cfg.label}
     </span>
@@ -110,24 +111,25 @@ function ArticleCard({ article, outlets }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        padding: '10px 12px',
-        borderRadius: '8px',
-        backgroundColor: hovered ? '#1e1e2e' : '#16161e',
-        border: `1px solid ${hovered ? '#3d3d5c' : '#252535'}`,
-        marginBottom: '8px',
+        padding: '12px 14px',
+        borderRadius: '10px',
+        backgroundColor: hovered ? '#f8fafc' : '#ffffff',
+        border: `1px solid ${hovered ? '#cbd5e1' : '#e2e8f0'}`,
+        marginBottom: '10px',
         transition: 'all 0.2s ease',
+        boxShadow: hovered ? '0 4px 12px rgba(0,0,0,0.03)' : '0 1px 3px rgba(0,0,0,0.02)',
         cursor: 'default',
       }}
     >
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        marginBottom: '4px',
+        marginBottom: '6px',
       }}>
         <span style={{
           fontSize: '11px',
-          fontWeight: 700,
-          color: '#a0a0c0',
+          fontWeight: 800,
+          color: '#64748b',
           letterSpacing: '0.05em',
           textTransform: 'uppercase',
         }}>
@@ -140,9 +142,10 @@ function ArticleCard({ article, outlets }) {
         target="_blank"
         rel="noopener noreferrer"
         style={{
-          fontSize: '12px',
+          fontSize: '13px',
           lineHeight: '1.5',
-          color: hovered ? '#c8b4fa' : '#d0d0f0',
+          fontWeight: 600,
+          color: hovered ? '#2563eb' : '#1e293b',
           textDecoration: 'none',
           display: 'block',
           transition: 'color 0.2s ease',
@@ -152,10 +155,11 @@ function ArticleCard({ article, outlets }) {
       </a>
       {article.publishedAt && (
         <span style={{
-          fontSize: '10px',
-          color: '#44445a',
+          fontSize: '11px',
+          color: '#94a3b8',
           display: 'block',
-          marginTop: '4px',
+          marginTop: '6px',
+          fontWeight: 500,
         }}>
           {new Date(article.publishedAt).toLocaleDateString('en-US', {
             month: 'short', day: 'numeric', year: 'numeric'
@@ -174,8 +178,8 @@ function SkeletonBar({ width = '100%', height = '12px', style = {} }) {
       width,
       height,
       borderRadius: '6px',
-      backgroundColor: '#1e1e2e',
-      backgroundImage: 'linear-gradient(90deg, #1e1e2e 25%, #2a2a3e 50%, #1e1e2e 75%)',
+      backgroundColor: '#f1f5f9',
+      backgroundImage: 'linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%)',
       backgroundSize: '200% 100%',
       animation: 'pulse 1.5s ease-in-out infinite',
       ...style,
@@ -186,12 +190,6 @@ function SkeletonBar({ width = '100%', height = '12px', style = {} }) {
 function LoadingSkeleton() {
   return (
     <div>
-      <style>{`
-        @keyframes pulse {
-          0% { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
-        }
-      `}</style>
       {/* Bias bar skeleton */}
       <div style={{ marginBottom: '16px' }}>
         <SkeletonBar height="8px" style={{ marginBottom: '8px' }} />
@@ -202,19 +200,19 @@ function LoadingSkeleton() {
         </div>
       </div>
       {/* Owner line */}
-      <SkeletonBar width="60%" height="10px" style={{ marginBottom: '20px' }} />
+      <SkeletonBar width="60%" height="10px" style={{ marginBottom: '24px' }} />
       {/* Article cards */}
       {[1,2,3].map(i => (
         <div key={i} style={{
-          padding: '10px 12px',
-          borderRadius: '8px',
-          backgroundColor: '#16161e',
-          border: '1px solid #252535',
-          marginBottom: '8px',
+          padding: '12px 14px',
+          borderRadius: '10px',
+          backgroundColor: '#ffffff',
+          border: '1px solid #e2e8f0',
+          marginBottom: '10px',
         }}>
-          <SkeletonBar width="40%" height="10px" style={{ marginBottom: '6px' }} />
-          <SkeletonBar height="11px" style={{ marginBottom: '4px' }} />
-          <SkeletonBar width="80%" height="11px" />
+          <SkeletonBar width="40%" height="10px" style={{ marginBottom: '8px' }} />
+          <SkeletonBar height="12px" style={{ marginBottom: '6px' }} />
+          <SkeletonBar width="80%" height="12px" />
         </div>
       ))}
     </div>
@@ -272,15 +270,11 @@ export default function App() {
     ])
       .then(([biasResult, articlesResult]) => {
         setBiasData(biasResult)
-        // After we know currentBias, we could re-fetch for diversification;
-        // but the server already does it server-side with the currentBias param.
-        // For now set articles from first fetch:
         if (articlesResult.error) throw new Error(articlesResult.error)
         setArticles(articlesResult.articles || [])
         setLoading(false)
       })
       .catch(() => {
-        // Re-fetch articles with currentBias once biasData is known
         setLoading(false)
         setError('Could not load context. Check your ContextBar server.')
       })
@@ -300,7 +294,7 @@ export default function App() {
       .then(result => {
         if (!result.error) setArticles(result.articles || [])
       })
-      .catch(() => {}) // silently fail — first fetch already set articles
+      .catch(() => {})
   }, [biasData, domain, headline, serverUrl])
 
   const toggleCollapsed = () => {
@@ -312,9 +306,9 @@ export default function App() {
   }
 
   const fundingBadgeColor = {
-    'private':  '#f59e0b',
-    'public':   '#22c55e',
-    'nonprofit':'#a78bfa',
+    'private':  { text: '#b45309', bg: '#fef3c7', border: '#fde68a' },
+    'public':   { text: '#15803d', bg: '#dcfce7', border: '#bbf7d0' },
+    'nonprofit':{ text: '#6d28d9', bg: '#ede9fe', border: '#ddd6fe' },
   }
 
   // ── Collapsed tab ──────────────────────────────────────────────────────────
@@ -335,30 +329,31 @@ export default function App() {
             width: '28px',
             height: '120px',
             borderRadius: '8px 0 0 8px',
-            backgroundColor: '#0f0f1a',
-            border: '1px solid #2d2d4d',
+            backgroundColor: '#ffffff',
+            border: '1px solid #cbd5e1',
             borderRight: 'none',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#7c7cac',
+            color: '#64748b',
             fontSize: '11px',
-            fontWeight: 700,
+            fontWeight: 800,
             writingMode: 'vertical-rl',
             textOrientation: 'mixed',
             transform: 'rotate(180deg)',
-            letterSpacing: '0.1em',
+            letterSpacing: '0.15em',
             transition: 'all 0.2s ease',
-            fontFamily: 'system-ui, sans-serif',
+            fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
+            boxShadow: '-4px 0 12px rgba(0,0,0,0.05)',
           }}
           onMouseEnter={e => {
-            e.currentTarget.style.backgroundColor = '#1a1a2e'
-            e.currentTarget.style.color = '#c8b4fa'
+            e.currentTarget.style.backgroundColor = '#f8fafc'
+            e.currentTarget.style.color = '#2563eb'
           }}
           onMouseLeave={e => {
-            e.currentTarget.style.backgroundColor = '#0f0f1a'
-            e.currentTarget.style.color = '#7c7cac'
+            e.currentTarget.style.backgroundColor = '#ffffff'
+            e.currentTarget.style.color = '#64748b'
           }}
         >
           CONTEXT
@@ -372,54 +367,62 @@ export default function App() {
     <div style={{
       width: '100%',
       height: '100vh',
-      backgroundColor: '#0a0a14',
-      color: '#d0d0f0',
-      fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
+      backgroundColor: '#f0f8ff', // Alice Blue
+      color: '#334155',
+      fontFamily: "'Plus Jakarta Sans', system-ui, -apple-system, sans-serif",
       display: 'flex',
       flexDirection: 'column',
       overflow: 'hidden',
+      borderLeft: '1px solid #e2e8f0',
+      boxShadow: '-8px 0 24px rgba(0,0,0,0.04)',
     }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         @keyframes pulse {
           0% { background-position: 200% 0; }
           100% { background-position: -200% 0; }
         }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #0a0a14; }
-        ::-webkit-scrollbar-thumb { background: #2d2d4d; border-radius: 2px; }
-        ::-webkit-scrollbar-thumb:hover { background: #3d3d6d; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f0f8ff; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
       `}</style>
 
       {/* Header */}
       <div style={{
-        padding: '14px 16px 12px',
-        borderBottom: '1px solid #1a1a2e',
+        padding: '16px',
+        borderBottom: '1px solid #e2e8f0',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        background: 'linear-gradient(135deg, #0f0f1e 0%, #12122a 100%)',
+        backgroundColor: '#ffffff',
         flexShrink: 0,
+        boxShadow: '0 2px 10px rgba(0,0,0,0.02)',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{
-            width: '24px',
-            height: '24px',
-            borderRadius: '6px',
-            background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
+            width: '28px',
+            height: '28px',
+            borderRadius: '8px',
+            background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '12px',
-            boxShadow: '0 0 12px #7c3aed44',
+            color: 'white',
+            boxShadow: '0 2px 8px rgba(37, 99, 235, 0.25)',
           }}>
-            ⚡
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
+              <path d="M18 14h-8"></path>
+              <path d="M15 18h-5"></path>
+              <path d="M10 6h8v4h-8V6Z"></path>
+            </svg>
           </div>
           <span style={{
-            fontSize: '13px',
-            fontWeight: 700,
-            letterSpacing: '0.08em',
-            color: '#e0d0ff',
+            fontSize: '14px',
+            fontWeight: 800,
+            letterSpacing: '0.06em',
+            color: '#0f172a',
             textTransform: 'uppercase',
           }}>
             ContextBar
@@ -429,18 +432,27 @@ export default function App() {
           onClick={toggleCollapsed}
           title="Collapse sidebar"
           style={{
-            background: 'none',
+            background: '#f1f5f9',
             border: 'none',
             cursor: 'pointer',
-            color: '#555570',
-            fontSize: '18px',
-            lineHeight: 1,
-            padding: '2px 4px',
-            borderRadius: '4px',
-            transition: 'color 0.2s ease',
+            color: '#64748b',
+            fontSize: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '24px',
+            height: '24px',
+            borderRadius: '6px',
+            transition: 'all 0.2s ease',
           }}
-          onMouseEnter={e => e.currentTarget.style.color = '#c8b4fa'}
-          onMouseLeave={e => e.currentTarget.style.color = '#555570'}
+          onMouseEnter={e => {
+            e.currentTarget.style.backgroundColor = '#e2e8f0'
+            e.currentTarget.style.color = '#0f172a'
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.backgroundColor = '#f1f5f9'
+            e.currentTarget.style.color = '#64748b'
+          }}
         >
           ›
         </button>
@@ -456,26 +468,32 @@ export default function App() {
         {/* Domain badge */}
         {domain && (
           <div style={{
-            fontSize: '11px',
-            color: '#44445a',
-            marginBottom: '12px',
-            letterSpacing: '0.04em',
+            fontSize: '12px',
+            fontWeight: 600,
+            color: '#64748b',
+            marginBottom: '10px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
           }}>
-            🔎 {domain}
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            {domain}
           </div>
         )}
 
         {/* Headline preview */}
         {headline && (
           <div style={{
-            fontSize: '12px',
-            color: '#7070a0',
-            lineHeight: '1.5',
-            marginBottom: '14px',
-            padding: '8px 10px',
-            backgroundColor: '#12121e',
-            borderRadius: '6px',
-            borderLeft: '2px solid #3d3d6d',
+            fontSize: '13px',
+            color: '#334155',
+            lineHeight: '1.6',
+            fontWeight: 500,
+            marginBottom: '16px',
+            padding: '12px 14px',
+            backgroundColor: '#ffffff',
+            borderRadius: '8px',
+            borderLeft: '3px solid #2563eb',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
           }}>
             {headline.length > 100 ? headline.slice(0, 97) + '…' : headline}
           </div>
@@ -485,33 +503,33 @@ export default function App() {
         {error && !loading && (
           <div style={{
             padding: '16px',
-            backgroundColor: '#1a0a0a',
-            border: '1px solid #3d1a1a',
-            borderRadius: '8px',
-            marginBottom: '12px',
+            backgroundColor: '#fef2f2',
+            border: '1px solid #fecaca',
+            borderRadius: '10px',
+            marginBottom: '16px',
             textAlign: 'center',
           }}>
             <div style={{ fontSize: '20px', marginBottom: '8px' }}>⚠️</div>
-            <p style={{ fontSize: '12px', color: '#f87171', marginBottom: '12px', lineHeight: '1.5' }}>
+            <p style={{ fontSize: '13px', color: '#b91c1c', marginBottom: '12px', lineHeight: '1.5', fontWeight: 500 }}>
               {error}
             </p>
             <button
               onClick={fetchData}
               style={{
-                padding: '6px 16px',
-                backgroundColor: '#7c3aed',
+                padding: '8px 16px',
+                backgroundColor: '#ef4444',
                 color: 'white',
                 border: 'none',
-                borderRadius: '6px',
+                borderRadius: '8px',
                 fontSize: '12px',
                 cursor: 'pointer',
-                fontWeight: 600,
+                fontWeight: 700,
                 transition: 'background-color 0.2s ease',
               }}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor = '#6d28d9'}
-              onMouseLeave={e => e.currentTarget.style.backgroundColor = '#7c3aed'}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = '#dc2626'}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = '#ef4444'}
             >
-              ↺ Retry
+              ↺ Retry Connection
             </button>
           </div>
         )}
@@ -524,19 +542,20 @@ export default function App() {
           <>
             {/* Section: Outlet Bias */}
             <div style={{
-              marginBottom: '20px',
-              padding: '14px',
-              backgroundColor: '#0e0e1e',
-              borderRadius: '10px',
-              border: '1px solid #1e1e34',
+              marginBottom: '24px',
+              padding: '16px',
+              backgroundColor: '#ffffff',
+              borderRadius: '12px',
+              border: '1px solid #e2e8f0',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
             }}>
               <h2 style={{
-                fontSize: '10px',
-                fontWeight: 700,
-                color: '#5555a0',
+                fontSize: '11px',
+                fontWeight: 800,
+                color: '#64748b',
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
-                marginBottom: '12px',
+                marginBottom: '16px',
               }}>
                 Media Bias
               </h2>
@@ -546,58 +565,71 @@ export default function App() {
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '6px',
+                gap: '8px',
                 flexWrap: 'wrap',
+                marginTop: '16px',
+                paddingTop: '16px',
+                borderTop: '1px solid #f1f5f9',
               }}>
                 <span style={{
-                  fontSize: '11px',
-                  color: '#7070a0',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  color: '#475569',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
                 }}>
-                  {biasData.owner !== 'unknown' ? `🏢 ${biasData.owner}` : '🏢 Owner unknown'}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg>
+                  {biasData.owner !== 'unknown' ? biasData.owner : 'Owner unknown'}
                 </span>
-                {biasData.funding && biasData.funding !== 'unknown' && (
-                  <span style={{
-                    display: 'inline-block',
-                    padding: '1px 7px',
-                    borderRadius: '999px',
-                    fontSize: '10px',
-                    fontWeight: 600,
-                    color: fundingBadgeColor[biasData.funding] || '#a0a0c0',
-                    border: `1px solid ${(fundingBadgeColor[biasData.funding] || '#a0a0c0')}44`,
-                    backgroundColor: `${(fundingBadgeColor[biasData.funding] || '#a0a0c0')}15`,
-                    letterSpacing: '0.04em',
-                    textTransform: 'capitalize',
-                  }}>
-                    {biasData.funding}
-                  </span>
-                )}
+                {biasData.funding && biasData.funding !== 'unknown' && (() => {
+                  const fColors = fundingBadgeColor[biasData.funding] || { text: '#475569', bg: '#f1f5f9', border: '#e2e8f0' }
+                  return (
+                    <span style={{
+                      display: 'inline-block',
+                      padding: '2px 8px',
+                      borderRadius: '999px',
+                      fontSize: '10px',
+                      fontWeight: 700,
+                      color: fColors.text,
+                      border: `1px solid ${fColors.border}`,
+                      backgroundColor: fColors.bg,
+                      letterSpacing: '0.04em',
+                      textTransform: 'capitalize',
+                    }}>
+                      {biasData.funding}
+                    </span>
+                  )
+                })()}
               </div>
             </div>
 
             {/* Section: Opposing Views */}
             <div>
               <h2 style={{
-                fontSize: '10px',
-                fontWeight: 700,
-                color: '#5555a0',
+                fontSize: '11px',
+                fontWeight: 800,
+                color: '#64748b',
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
-                marginBottom: '10px',
+                marginBottom: '12px',
               }}>
                 Other Perspectives
               </h2>
 
               {articles.length === 0 ? (
                 <div style={{
-                  padding: '16px',
+                  padding: '20px 16px',
                   textAlign: 'center',
-                  color: '#44445a',
-                  fontSize: '12px',
-                  backgroundColor: '#0e0e1e',
-                  borderRadius: '8px',
-                  border: '1px solid #1e1e34',
+                  color: '#64748b',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  backgroundColor: '#ffffff',
+                  borderRadius: '10px',
+                  border: '1px solid #e2e8f0',
+                  borderStyle: 'dashed',
                 }}>
-                  No related articles found.
+                  No related articles found for this topic.
                 </div>
               ) : (
                 articles.map((article, i) => (
@@ -611,10 +643,12 @@ export default function App() {
 
       {/* Footer */}
       <div style={{
-        padding: '8px 16px',
-        borderTop: '1px solid #1a1a2e',
-        fontSize: '10px',
-        color: '#2d2d4d',
+        padding: '12px 16px',
+        borderTop: '1px solid #e2e8f0',
+        backgroundColor: '#ffffff',
+        fontSize: '11px',
+        fontWeight: 600,
+        color: '#94a3b8',
         textAlign: 'center',
         flexShrink: 0,
         letterSpacing: '0.04em',

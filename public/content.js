@@ -82,15 +82,16 @@
     // Create host element
     const host = document.createElement('div');
     host.id = HOST_ID;
-    Object.assign(host.style, {
-      position:  'fixed',
-      right:     '0',
-      top:       '0',
-      width:     '320px',
-      height:    '100vh',
-      zIndex:    '2147483647',
-      pointerEvents: 'none', // host passes through; iframe handles its own events
-    });
+    host.style.cssText = `
+      display: block !important;
+      position: fixed !important;
+      right: 0 !important;
+      top: 0 !important;
+      width: 320px !important;
+      height: 100vh !important;
+      z-index: 2147483647 !important;
+      pointer-events: none !important;
+    `;
 
     // Shadow DOM — critical: prevents host-page CSS from leaking in
     const shadow = host.attachShadow({ mode: 'open' });
@@ -98,13 +99,13 @@
     // Reset styles inside shadow root
     const style = document.createElement('style');
     style.textContent = `
-      :host { all: initial; }
       iframe {
-        border: none;
-        width: 320px;
-        height: 100vh;
-        pointer-events: all;
-        display: block;
+        border: none !important;
+        width: 100% !important;
+        height: 100% !important;
+        pointer-events: auto !important;
+        display: block !important;
+        background: transparent !important;
       }
     `;
     shadow.appendChild(style);

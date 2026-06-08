@@ -5,6 +5,7 @@ import { resolve } from 'path'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '', // Force relative paths for extension
   // The sidebar HTML is the sole entry point — everything goes to dist/sidebar/
   root: resolve(__dirname, 'src/sidebar'),
   build: {
